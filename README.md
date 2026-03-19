@@ -19,3 +19,10 @@ Todo list:
   - [ ] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
 
 Project status: I have only drafted the beginning of `README.md`.
+
+## Package Branches
+
+This repository uses separate branches for each package:
+
+- **[bash](https://github.com/stephane-klein/fedora-rpm-copr-playground/tree/bash)** - RPM package for a Bash script
+- **[golang](https://github.com/stephane-klein/fedora-rpm-copr-playground/tree/golang)** - RPM package for a Golang application
