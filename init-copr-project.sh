@@ -16,7 +16,8 @@ copr-cli add-package-scm "$COPR_PROJECT" \
     --subdir . \
     --spec rpm/hello-bash.spec \
     --type git \
-    --webhook-rebuild off
+    --method make_srpm \
+    --webhook-rebuild on
 
 echo ""
 echo "Project '$COPR_PROJECT' created with SCM package configured!"
