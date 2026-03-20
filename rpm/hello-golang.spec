@@ -1,5 +1,5 @@
 Name:           hello-golang
-Version:        1.0.9
+Version:        1.0.10
 Release:        1%{?dist}
 Summary:        A simple Hello World Go application
 
