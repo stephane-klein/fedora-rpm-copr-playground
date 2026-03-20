@@ -127,8 +127,22 @@ The workflow `.github/workflows/trigger-copr-build.yml` calls the COPR custom we
 
 **Trigger a build:**
 
+Run the release script:
+
 ```bash
-git tag -a v1.0.1 -m "Release version 1.0.1"
+./release.sh v1.0.3
+```
+
+This command will:
+
+1. Update the version in `rpm/hello-bash.spec`
+2. Update the version in `hello-bash` script
+3. Create a git commit
+4. Create a git tag
+
+After running the command, push the changes to trigger the build:
+
+```bash
 git push origin bash --tags
 ```
 
