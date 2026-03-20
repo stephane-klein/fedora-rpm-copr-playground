@@ -16,17 +16,26 @@ copr-cli add-package-scm "$COPR_PROJECT" \
     --subdir . \
     --spec rpm/hello-bash.spec \
     --type git \
-    --method make_srpm
+    --method make_srpm \
+    --webhook-rebuild on
 
 echo ""
-echo "Project '$COPR_PROJECT' created with SCM package configured!"
+echo "Project '${COPR_PROJECT}' created with SCM package configured!"
 echo ""
-echo "Configuration:"
-echo "  - Branch monitored: bash"
-echo "  - Build trigger: new tags"
+echo "Webhook is enabled. To complete the setup:"
 echo ""
-echo "To trigger a build automatically:"
-echo "  git tag -a v1.0.1 -m 'Release 1.0.1'"
-echo "  git push origin bash --tags"
+echo "1. Go to your COPR project settings:"
+echo "   https://copr.fedorainfracloud.org/coprs/stephaneklein/${COPR_PROJECT}/settings/integrations/"
 echo ""
-echo "Project URL: https://copr.fedorainfracloud.org/coprs/stephaneklein/$COPR_PROJECT/"
+echo "2. Copy the webhook URL (format:"
+echo "   https://copr.fedorainfracloud.org/webhooks/github/<ID>/<UUID>/)"
+echo ""
+echo "3. Configure GitHub webhook:"
+echo "   - Go to: Settings > Webhooks > Add webhook"
+echo "   - Payload URL: <your_copr_webhook_url>"
+echo "   - Content type: application/json"
+echo "   - Events: select 'Branch or tag creation'"
+echo ""
+echo "Note: GitHub sends webhook for all branches. COPR filters to 'bash' branch only."
+echo ""
+echo "Project URL: https://copr.fedorainfracloud.org/coprs/stephaneklein/${COPR_PROJECT}/"
