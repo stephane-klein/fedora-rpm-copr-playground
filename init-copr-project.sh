@@ -16,15 +16,13 @@ copr-cli add-package-scm "$COPR_PROJECT" \
     --subdir . \
     --spec rpm/hello-bash.spec \
     --type git \
-    --method make_srpm \
-    --webhook-rebuild on
+    --method make_srpm
 
 echo ""
 echo "Project '$COPR_PROJECT' created with SCM package configured!"
 echo ""
 echo "Configuration:"
 echo "  - Branch monitored: bash"
-echo "  - Polling: every 5 minutes (default)"
 echo "  - Build trigger: new tags"
 echo ""
 echo "To trigger a build automatically:"

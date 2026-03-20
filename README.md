@@ -85,7 +85,6 @@ Project 'hello-bash' created with SCM package configured!
 
 Configuration:
   - Branch monitored: bash
-  - Polling: every 5 minutes (default)
   - Build trigger: new tags
 
 To trigger a build automatically:
@@ -126,7 +125,6 @@ This project supports automatic builds triggered by Git tags using COPR's built-
 
 **Configuration:**
 - COPR monitors the `bash` branch for new tags
-- Polling interval: 5 minutes (300 seconds)
 - Build is triggered automatically when a new tag is pushed
 
 **Workflow:**
@@ -138,10 +136,10 @@ This project supports automatic builds triggered by Git tags using COPR's built-
    git push origin bash --tags
    ```
 
-2. COPR automatically detects the new tag (within 5 minutes) and starts building.
+2. COPR automatically detects the new tag and starts building.
 3. Monitor your build at: <https://copr.fp.o/@stephaneklein/hello-bash>
 
 **Important Notes:**
 - Tags must follow semver format (e.g., `v1.0.0`, `v2.1.3`)
 - The tag prefix `v` is automatically stripped for the RPM version
-- The first build for a new tag may take a few minutes to start due to polling delay
+- The build may take a few minutes to start due to polling delay
