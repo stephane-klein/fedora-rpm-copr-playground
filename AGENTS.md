@@ -27,3 +27,7 @@ When working on the `golang` branch, it is possible to draw inspiration from the
 
 All file contents must be in English.
 
+## Build Preferences
+
+Prefer simple bash scripts over Makefiles for build automation. The only exception is the `.copr/` directory, where a Makefile is required.
+
