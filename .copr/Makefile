@@ -1,5 +1,5 @@
 specfile = rpm/hello-golang.spec
-version = 1.0.0
+version = 1.0.7
 
 .PHONY: srpm
 srpm: $(specfile)

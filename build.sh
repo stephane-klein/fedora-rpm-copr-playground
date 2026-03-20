@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-VERSION="1.0.0"
+VERSION="1.0.7"
 
 echo "Building Go binary..."
 go build -ldflags "-X main.version=${VERSION}" -o hello-golang
