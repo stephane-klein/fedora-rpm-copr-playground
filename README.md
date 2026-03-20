@@ -9,16 +9,14 @@ In this playground, I want to create a package for:
 
 Todo list:
 
-- [ ] For the Bash project
-  - [ ] Document how to build an RPM package locally
-  - [ ] Document how to build an RPM package locally and push it to Fedora COPR
-  - [ ] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
+- [x] For the Bash project
+  - [x] Document how to build an RPM package locally
+  - [x] Document how to build an RPM package locally and push it to Fedora COPR
+  - [x] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
 - [ ] For the Golang project
   - [ ] Document how to build an RPM package locally
   - [ ] Document how to build an RPM package locally and push it to Fedora COPR
   - [ ] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
-
-Project status: I have only drafted the beginning of `README.md`.
 
 ## Package Branches
 
