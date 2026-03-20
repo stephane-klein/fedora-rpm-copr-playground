@@ -1,0 +1,15 @@
+name: Trigger Copr Build
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  trigger-copr-build:
+    if: github.event.base_ref == 'refs/heads/bash'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Copr webhook
+        run: |
+          curl -X POST https://copr.fedorainfracloud.org/webhooks/custom/226325/3cf20247-820b-4050-bfb1-593b01a6996f/hello-bash/
