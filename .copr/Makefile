@@ -6,7 +6,7 @@ srpm: $(specfile)
 	mkdir -p /tmp/copr-srpm-build
 	cp -r . /tmp/copr-srpm-build/hello-golang-$(version)
 	cd /tmp/copr-srpm-build && \
-		tar -czf hello-golang-$(version).tar.gz hello-golang-$(version) --exclude='.git' --exclude='rpmbuild' && \
+		tar -czf hello-golang-$(version).tar.gz --exclude='.git' --exclude='rpmbuild' hello-golang-$(version) && \
 		rpmbuild -bs $(specfile) \
 			--define "_topdir /tmp/copr-srpm-build/rpmbuild" \
 			--define "dist .fc42" \
