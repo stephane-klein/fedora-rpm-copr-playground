@@ -13,10 +13,10 @@ Todo list:
   - [x] Document how to build an RPM package locally
   - [x] Document how to build an RPM package locally and push it to Fedora COPR
   - [x] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
-- [ ] For the Golang project
-  - [ ] Document how to build an RPM package locally
-  - [ ] Document how to build an RPM package locally and push it to Fedora COPR
-  - [ ] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
+- [x] For the Golang project
+  - [x] Document how to build an RPM package locally
+  - [x] Document how to build an RPM package locally and push it to Fedora COPR
+  - [x] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
 
 ## Working with Package Branches
 
