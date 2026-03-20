@@ -112,3 +112,44 @@ Hello world! Version: 1.0.0
 $ sudo dnf remove -y hello-golang # Uninstall the package
 ```
 
+### Automatic Builds with GitHub Actions
+
+This project uses a GitHub Actions workflow to trigger automatic COPR builds when new tags are pushed to the `golang` branch.
+
+The workflow `.github/workflows/trigger-copr-build.yml` calls the COPR custom webhook on every tag push.
+
+**Setup:**
+
+1. Go to your COPR project integrations page: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-golang/integrations/>
+2. Click on "Custom webhook" and copy the webhook URL
+3. Update the URL in `.github/workflows/trigger-copr-build.yml`
+
+**Trigger a build:**
+
+Run the release script:
+
+```bash
+./release.sh v1.0.0
+```
+
+This command will:
+
+1. Update the version in `rpm/hello-golang.spec`
+2. Update the version in `build.sh`, `build-rpm-locally.sh`, and `build-srpm.sh`
+3. Update the version in `.copr/Makefile`
+4. Create a git commit
+5. Create a git tag
+
+After running the command, push the changes to trigger the build:
+
+```bash
+git push origin golang --tags
+```
+
+The build starts immediately (typically within 30 seconds) when the tag is pushed.
+
+**Important Notes:**
+- The workflow only runs for tags pushed to the `golang` branch
+- Tags must follow semver format (e.g., `v1.0.0`, `v2.1.3`)
+- The tag prefix `v` is automatically stripped for the RPM version
+- Monitor build status at: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-golang>

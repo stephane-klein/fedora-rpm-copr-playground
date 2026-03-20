@@ -1,0 +1,25 @@
+name: Trigger Copr Build
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  trigger-copr-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag is on golang branch
+        run: |
+          if ! git branch -r --contains ${{ github.ref_name }} | grep -q "origin/golang"; then
+            echo "Tag ${{ github.ref_name }} is not on branch golang"
+            exit 1
+          fi
+
+      - name: Trigger Copr webhook
+        run: |
+          curl -X POST  https://copr.fedorainfracloud.org/webhooks/custom/226422/434909b9-0103-4642-85c6-04613903fb1c/hello-golang/
