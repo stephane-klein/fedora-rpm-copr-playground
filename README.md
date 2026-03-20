@@ -79,13 +79,27 @@ Run the initialization script to create the `hello-bash` project in Copr:
 ```bash
 $ ./init-copr-project.sh
 New project was successfully created: https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/
+Create or edit operation was successful.
+
+Project 'hello-bash' created with SCM package configured!
+
+Configuration:
+  - Branch monitored: bash
+  - Polling: every 5 minutes (default)
+  - Build trigger: new tags
+
+To trigger a build automatically:
+  git tag -a v1.0.1 -m 'Release 1.0.1'
+  git push origin bash --tags
+
+Project URL: https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/
 ```
 
 This will create a public project named `hello-bash` with the Fedora 42 chroot enabled.
 
 Your project will be available at: `https://copr.fp.o/@stephaneklein/hello-bash`
 
-### Building in Copr
+### Building in Copr (manual)
 
 ```bash
 $ ./build-copr.sh
@@ -105,3 +119,29 @@ Hello World
 
 $ sudo dnf remove -y hello-bash
 ```
+
+### Automatic Builds with Git SCM
+
+This project supports automatic builds triggered by Git tags using COPR's built-in SCM feature.
+
+**Configuration:**
+- COPR monitors the `bash` branch for new tags
+- Polling interval: 5 minutes (300 seconds)
+- Build is triggered automatically when a new tag is pushed
+
+**Workflow:**
+
+1. Create a new release tag:
+
+   ```bash
+   git tag -a v1.0.1 -m "Release version 1.0.1"
+   git push origin bash --tags
+   ```
+
+2. COPR automatically detects the new tag (within 5 minutes) and starts building.
+3. Monitor your build at: <https://copr.fp.o/@stephaneklein/hello-bash>
+
+**Important Notes:**
+- Tags must follow semver format (e.g., `v1.0.0`, `v2.1.3`)
+- The tag prefix `v` is automatically stripped for the RPM version
+- The first build for a new tag may take a few minutes to start due to polling delay
