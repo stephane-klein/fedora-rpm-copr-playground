@@ -1,6 +1,15 @@
-# hello-golang
+# Hello Golang
 
-A simple "Hello World" Golang packaged as an RPM for Fedora COPR.
+Minimalist Hello world in Go with version support.
 
-You are on the `golang` Git branch. See the [main branch](https://github.com/stephane-klein/fedora-rpm-copr-playground) for a complete project overview.
+## Build
 
+```bash
+$ ./build.sh
+```
+
+## Run
+
+```bash
+$ ./hello-golang
+```
