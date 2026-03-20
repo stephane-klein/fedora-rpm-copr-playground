@@ -45,7 +45,7 @@ $ sudo rpm --erase hello-bash # Uninstall the package
 ```
 
 
-## Build RPM package in COPR
+## Build SRPM package locally and upload it to COPR to build the RPM package
 
 To build the RPM package in **Copr**, you also need:
 
@@ -83,21 +83,7 @@ Create or edit operation was successful.
 
 Project 'hello-bash' created with SCM package configured!
 
-Webhook is enabled. To complete the setup:
-
-1. Go to your COPR project settings:
-   https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/integrations/
-
-2. Copy the webhook URL (format:
-   https://copr.fedorainfracloud.org/webhooks/github/<ID>/<UUID>/)
-
-3. Configure GitHub webhook:
-   - Go to: Settings > Webhooks > Add webhook
-   - Payload URL: <your_copr_webhook_url>
-   - Content type: application/json
-   - Events: select 'Branch or tag creation'
-
-Project URL: https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/
+...
 ```
 
 This will create a public project named `hello-bash` with the Fedora 42 chroot enabled.
@@ -114,6 +100,8 @@ Created builds: https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash
 
 The resulting RPM will be available at <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/>.
 
+### Install the Copr package
+
 Install COPR package:
 
 ```bash
@@ -122,37 +110,32 @@ $ sudo dnf install -y hello-bash
 $ hello-bash
 Hello World
 
-$ sudo dnf remove -y hello-bash
+$ sudo dnf remove -y hello-bash # Uninstall the package
 ```
 
-### Automatic Builds with Webhooks
+### Automatic Builds with GitHub Actions
 
-This project uses GitHub webhooks to trigger automatic COPR builds when new tags are pushed.
+This project uses a GitHub Actions workflow to trigger automatic COPR builds when new tags are pushed to the `bash` branch.
 
-**Setup Steps:**
+The workflow `.github/workflows/trigger-copr-build.yml` calls the COPR custom webhook on every tag push.
 
-1. **Get your COPR webhook URL:**
-   - Go to: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/integrations/>
-   - Copy the webhook URL (format: `https://copr.fedorainfracloud.org/webhooks/github/<ID>/<UUID>/`)
+**Setup:**
 
-2. **Configure GitHub webhook:**
-   - Go to your GitHub repo: **Settings** > **Webhooks** > **Add webhook**
-   - **Payload URL**: Paste the COPR webhook URL
-   - **Content type**: `application/json`
-   - **Events**: Select **Branch or tag creation** (for tags)
+1. Go to your COPR project integrations page: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/integrations/>
+2. Click on "Custom webhook" and copy the webhook URL
+3. Update the URL in `.github/workflows/trigger-copr-build.yml`
 
-3. **Trigger a build:**
+**Trigger a build:**
 
-   ```bash
-   git tag -a v1.0.1 -m "Release version 1.0.1"
-   git push origin bash --tags
-   ```
+```bash
+git tag -a v1.0.1 -m "Release version 1.0.1"
+git push origin bash --tags
+```
 
 The build starts immediately (typically within 30 seconds) when the tag is pushed.
 
 **Important Notes:**
-- GitHub webhook sends notifications for all events (all branches)
-- COPR filters events: only pushes to the `bash` branch trigger builds
+- The workflow only runs for tags pushed to the `bash` branch
 - Tags must follow semver format (e.g., `v1.0.0`, `v2.1.3`)
 - The tag prefix `v` is automatically stripped for the RPM version
 - Monitor build status at: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash>
