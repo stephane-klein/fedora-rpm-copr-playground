@@ -18,9 +18,19 @@ Todo list:
   - [ ] Document how to build an RPM package locally and push it to Fedora COPR
   - [ ] Document how to automate package building by Fedora COPR directly from the source code of a GitHub repository
 
-## Package Branches
+## Working with Package Branches
 
 This repository uses separate branches for each package:
 
 - **[bash](https://github.com/stephane-klein/fedora-rpm-copr-playground/tree/bash)** - RPM package for a Bash script
 - **[golang](https://github.com/stephane-klein/fedora-rpm-copr-playground/tree/golang)** - RPM package for a Golang application
+
+To work on multiple branches simultaneously, use Git worktrees:
+
+```bash
+$ ./checkout-branches-in-worktree.sh
+```
+
+This creates:
+- `.worktree/bash/` - working copy of the `bash` branch
+- `.worktree/golang/` - working copy of the `golang` branch
