@@ -2,7 +2,9 @@
 
 A simple "Hello World" Bash script packaged as an RPM for Fedora COPR.
 
-You are on the `bash` Git branch. See the [main branch](https://github.com/stephane-klein/fedora-rpm-copr-playground) for a complete project overview.
+Unlike the [`bash`](https://github.com/stephane-klein/fedora-rpm-copr-playground/tree/bash) branch which contains only one file, this variant groups 3 files together.
+
+You are on the `bash-multifiles` Git branch. See the [main branch](https://github.com/stephane-klein/fedora-rpm-copr-playground) for a complete project overview.
 
 ## Prerequisites
 
@@ -39,7 +41,13 @@ $ sudo rpm -ivh ./rpmbuild/RPMS/noarch/hello-bash-1.0.0-1.fc42.noarch.rpm
 
 $ rehash
 $ hello-bash  # Test the installed script
-Hello World
+Hello World 1.0.6
+
+$ hello-bash2 # Test second script
+Hello World 2
+
+$ cat /usr/share/doc/hello-bash/doc.txt
+Fake documentation.
 
 $ sudo rpm --erase hello-bash # Uninstall the package
 ```
@@ -115,7 +123,7 @@ $ sudo dnf remove -y hello-bash # Uninstall the package
 
 ### Automatic Builds with GitHub Actions
 
-This project uses a GitHub Actions workflow to trigger automatic COPR builds when new tags are pushed to the `bash` branch.
+This project uses a GitHub Actions workflow to trigger automatic COPR builds when new tags are pushed to the `bash-multifiles` branch.
 
 The workflow `.github/workflows/trigger-copr-build.yml` calls the COPR custom webhook on every tag push.
 

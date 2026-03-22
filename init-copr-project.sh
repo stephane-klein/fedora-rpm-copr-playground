@@ -12,7 +12,7 @@ copr-cli create "$COPR_PROJECT" \
 copr-cli add-package-scm "$COPR_PROJECT" \
     --name hello-bash \
     --clone-url https://github.com/stephane-klein/fedora-rpm-copr-playground.git \
-    --commit bash \
+    --commit bash-multifiles \
     --subdir . \
     --spec rpm/hello-bash.spec \
     --type git \
@@ -31,9 +31,9 @@ echo "2. Click on 'Custom webhook' and copy the webhook URL"
 echo ""
 echo "3. Update the URL in .github/workflows/trigger-copr-build.yml"
 echo ""
-echo "4. Push a tag to the 'bash' branch:"
+echo "4. Push a tag to the 'bash-multifiles' branch:"
 echo ""
 echo "   git tag -a v1.0.0 -m 'Release version 1.0.0'"
-echo "   git push origin bash --tags"
+echo "   git push origin bash-multifiles --tags"
 echo ""
 echo "Project URL: https://copr.fedorainfracloud.org/coprs/stephaneklein/${COPR_PROJECT}/"

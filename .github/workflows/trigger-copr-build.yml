@@ -15,8 +15,8 @@ jobs:
 
       - name: Verify tag is on bash branch
         run: |
-          if ! git branch -r --contains ${{ github.ref_name }} | grep -q "origin/bash"; then
-            echo "Tag ${{ github.ref_name }} is not on branch bash"
+          if ! git branch -r --contains ${{ github.ref_name }} | grep -q "origin/bash-multifiles"; then
+            echo "Tag ${{ github.ref_name }} is not on branch bash-multifiles"
             exit 1
           fi
 
