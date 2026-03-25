@@ -1,5 +1,5 @@
 Name:           hello-bash
-Version:        1.0.11
+Version:        1.0.13
 Release:        1%{?dist}
 Summary:        A simple Hello World bash script
 
