@@ -10,7 +10,8 @@ actions:
 
 jobs:
   - job: copr_build
-    trigger: release
+    # trigger: release
+    trigger: commit
     owner: stephaneklein
     project: hello-bash-packit
     targets:
