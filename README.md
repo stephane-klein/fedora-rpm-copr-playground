@@ -1,16 +1,32 @@
 # hello-bash
 
-A simple "Hello World" Bash script packaged as an RPM for Fedora COPR.
+A simple "Hello World" Bash script packaged as an RPM, automatically built with Packit and distributed via Fedora COPR.
 
 Unlike the [`bash`](https://github.com/stephane-klein/fedora-rpm-copr-playground/tree/bash) branch which contains only one file, this variant groups 3 files together.
 
-You are on the `bash-multifiles` Git branch. See the [main branch](https://github.com/stephane-klein/fedora-rpm-copr-playground) for a complete project overview.
+You are on the `bash-packit` Git branch. See the [main branch](https://github.com/stephane-klein/fedora-rpm-copr-playground) for a complete project overview.
 
 ## Prerequisites
 
 This project has been tested on **Fedora 42**.
 
-To build the RPM package locally, you need to install the following dependencies:
+### Required tools
+
+```bash
+# Install Mise (version manager)
+$ curl https://mise.run | sh
+
+# Install project dependencies
+$ mise install
+```
+
+- `mise` - Version manager for development tools
+- `gh` - GitHub CLI (installed automatically via Mise)
+- `copr-cli` - Command-line client for Copr (required for initial setup)
+
+## Building locally
+
+Optional tools for local builds only:
 
 ```bash
 $ sudo dnf install rpm-build rpmdevtools rpmlint
@@ -18,9 +34,7 @@ $ sudo dnf install rpm-build rpmdevtools rpmlint
 
 - `rpm-build` - Tools for building RPM packages
 - `rpmdevtools` - Development utilities for RPM packaging
-- `rpmlint` - Linter for checking RPM spec files (optional but recommended)
-
-## Building locally
+- `rpmlint` - Linter for checking RPM spec files
 
 ```bash
 $ ./build.sh
@@ -52,68 +66,46 @@ Fake documentation.
 $ sudo rpm --erase hello-bash # Uninstall the package
 ```
 
+## Automatic Builds with Packit
 
-## Build SRPM package locally and upload it to COPR to build the RPM package
+Before using Packit, you need to initialize the Copr project once:
 
-To build the RPM package in **Copr**, you also need:
-
-```bash
-$ sudo dnf install copr-cli
-```
-
-- `copr-cli` - Command-line client for Copr build system
-
-### Authenticate to COPR
-
-1. Log in to [Copr](https://copr.fedorainfracloud.org) with your Fedora Account System (FAS) credentials.
-2. Generate an API token:
-   - Go to your [Account Settings](https://copr.fedorainfracloud.org/api)
-   - Click on "Generate Token" under "API token"
-   - Copy the generated token
-3. Configure `copr-cli` with your credentials:
-
+1. Configure `copr-cli` with your credentials:
    ```bash
    $ copr-cli login
-   Username: stephaneklein
-   Password: your_api_token
    ```
 
-   Your credentials will be saved to `~/.config/copr` for future use.
+2. Create the Copr project with Packit permissions:
+   ```bash
+   $ ./init-copr-project.sh
+   ```
 
-### Initialize the Copr Project
+3. Enable Packit on your repository:
+   - Go to [Packit Service](https://github.com/apps/packit-as-a-service)
+   - Install the app on this repository
 
-Run the initialization script to create the `hello-bash` project in Copr:
+Once these steps are complete, Packit will automatically build new releases.
+
+To create a release, execute:
 
 ```bash
-$ ./init-copr-project.sh
-New project was successfully created: https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/
-Create or edit operation was successful.
-
-Project 'hello-bash' created with SCM package configured!
-
-...
+$ ./release.sh v1.0.3
 ```
 
-This will create a public project named `hello-bash` with the Fedora 42 chroot enabled.
+This script will:
 
-Your project will be available at: `https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash`
+1. Update the version in `rpm/hello-bash.spec`
+2. Update the version in `hello-bash` script
+3. Create a git commit and tag
+4. Push changes to GitHub
+5. Create a GitHub Release (which triggers the Copr build)
 
-### Building in Copr (manual)
+Next, Packit detects the release and builds the RPM in Copr.
 
-```bash
-$ ./build-copr.sh
-Building in Copr...
-Created builds: https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash
-```
-
-The resulting RPM will be available at <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/>.
-
-### Install the Copr package
-
-Install COPR package:
+Once the build completes, install the built package from COPR with:
 
 ```bash
-$ sudo dnf copr enable -y stephaneklein/hello-bash
+$ sudo dnf copr enable stephaneklein/hello-bash-packit
 $ sudo dnf install -y hello-bash
 $ hello-bash
 Hello World
@@ -121,43 +113,6 @@ Hello World
 $ sudo dnf remove -y hello-bash # Uninstall the package
 ```
 
-### Automatic Builds with GitHub Actions
-
-This project uses a GitHub Actions workflow to trigger automatic COPR builds when new tags are pushed to the `bash-multifiles` branch.
-
-The workflow `.github/workflows/trigger-copr-build.yml` calls the COPR custom webhook on every tag push.
-
-**Setup:**
-
-1. Go to your COPR project integrations page: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash/integrations/>
-2. Click on "Custom webhook" and copy the webhook URL
-3. Update the URL in `.github/workflows/trigger-copr-build.yml`
-
-**Trigger a build:**
-
-Run the release script:
-
-```bash
-./release.sh v1.0.3
-```
-
-This command will:
-
-1. Update the version in `rpm/hello-bash.spec`
-2. Update the version in `hello-bash` script
-3. Create a git commit
-4. Create a git tag
-
-After running the command, push the changes to trigger the build:
-
-```bash
-git push origin bash --tags
-```
-
-The build starts immediately (typically within 30 seconds) when the tag is pushed.
-
-**Important Notes:**
-- The workflow only runs for tags pushed to the `bash` branch
-- Tags must follow semver format (e.g., `v1.0.0`, `v2.1.3`)
-- The tag prefix `v` is automatically stripped for the RPM version
-- Monitor build status at: <https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash>
+Monitor builds at:
+- [Packit Dashboard](https://dashboard.packit.dev/)
+- [Copr project](https://copr.fedorainfracloud.org/coprs/stephaneklein/hello-bash-packit/)

@@ -26,8 +26,9 @@ git add "$SPEC_FILE" "$HELLO_SCRIPT"
 git commit -m "Release version $VERSION_NUM"
 git tag -a "$VERSION" -m "Release version $VERSION_NUM"
 
+git push origin bash-packit --tags
+gh release create "$VERSION" --title "Release $VERSION" --generate-notes
+
 echo ""
 echo "Release $VERSION created successfully!"
-echo ""
-echo "To push to remote, run:"
-echo "  git push origin bash-multifiles --tags"
+echo "GitHub Release: https://github.com/stephane-klein/fedora-rpm-copr-playground/releases/$VERSION"

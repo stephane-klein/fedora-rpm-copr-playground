@@ -1,0 +1,20 @@
+specfile_path: rpm/hello-bash.spec
+
+upstream_package_name: hello-bash
+downstream_package_name: hello-bash
+
+actions:
+  create-archive:
+    - bash -c 'tar -czf rpm/hello-bash.tar.gz hello-bash hello-bash2 doc.txt'
+    - bash -c 'echo rpm/hello-bash.tar.gz'
+
+jobs:
+  - job: copr_build
+    trigger: release
+    owner: stephaneklein
+    project: hello-bash-packit
+    targets:
+      - fedora-42
+      - fedora-43
+      - fedora-44
+    preserve_project: true
