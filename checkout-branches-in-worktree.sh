@@ -2,7 +2,7 @@
 set -euo pipefail
 
 WORKTREE_DIR=".worktree"
-BRANCHES=("bash" "golang" "bash-multifiles")
+BRANCHES=("bash" "golang" "bash-multifiles" "bash-packit")
 
 is_git_repo() {
     git rev-parse --is-inside-work-tree > /dev/null 2>&1
