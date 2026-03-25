@@ -6,8 +6,7 @@ upstream_tag_template: "v{version}"
 
 actions:
   create-archive:
-    - bash -c 'tar -czf rpm/hello-bash.tar.gz hello-bash hello-bash2 doc.txt'
-    - bash -c 'echo rpm/hello-bash.tar.gz'
+    - bash rpm/create-archive.sh
 
 jobs:
   - job: copr_build
