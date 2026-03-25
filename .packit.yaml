@@ -10,11 +10,11 @@ actions:
 
 jobs:
   - job: copr_build
-    # trigger: release
-    trigger: commit
+    trigger: release
+    # trigger: commit
+    # branch: bash-packit
     owner: stephaneklein
     project: hello-bash-packit
-    branch: bash-packit
     targets:
       - fedora-42
       - fedora-43

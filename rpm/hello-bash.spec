@@ -5,7 +5,7 @@ Summary:        A simple Hello World bash script
 
 License:        MIT
 URL:            https://github.com/stephane-klein/fedora-rpm-copr-playground
-Source0:        hello-bash.tar.gz
+Source0:        hello-bash-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -13,7 +13,7 @@ BuildArch:      noarch
 A simple "Hello World" Bash script packaged as an RPM for Fedora COPR.
 
 %prep
-%setup -q -n .
+%setup -q -n hello-bash-%{version}
 
 %build
 # Nothing to build, it's a bash script
