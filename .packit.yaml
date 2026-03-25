@@ -2,6 +2,7 @@ specfile_path: rpm/hello-bash.spec
 
 upstream_package_name: hello-bash
 downstream_package_name: hello-bash
+upstream_tag_template: "v{version}"
 
 actions:
   create-archive:
